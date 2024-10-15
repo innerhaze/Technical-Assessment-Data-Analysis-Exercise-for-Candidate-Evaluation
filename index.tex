@@ -1,0 +1,799 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Business Data Analysis Report},
+  pdfauthor={Your Name},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Business Data Analysis Report}
+\author{Your Name}
+\date{2024-10-14}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load Required Libraries}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(naniar)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'tidyr' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load the CSV file}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"C:/Users/Usuario/Downloads/Take\_home\_data.csv"}\NormalTok{, }\AttributeTok{stringsAsFactors =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{sep =} \StringTok{";"}\NormalTok{)}
+
+\CommentTok{\# Structure of the DataFrame}
+\FunctionTok{str}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    9957 obs. of  43 variables:
+##  $ dataplor_id                        : chr  "95acb6bc-ff00-4747-9bc6-e3c6ba42550b" "4e5b96b6-cd92-4f67-a432-7dabfa7f4ea7" "7beee130-263b-4058-bd92-af9bc42f595a" "c6a48eca-1b72-42ab-8e76-8060bfde018b" ...
+##  $ parent_location                    : chr  "" "" "a022dcf7-40e4-4f32-9b43-d2fc9e2481f3" "" ...
+##  $ name                               : chr  "The Barber Shop" "Zihil Bespoke Studio" "Master Bowl Chinese Restaurant" "Klook" ...
+##  $ main_category                      : chr  "bars" "professional_services" "dining" "travel" ...
+##  $ sub_category                       : chr  "specialized" "licensed_professional" "diner" "vacation_services" ...
+##  $ sub_sub_category                   : chr  "" "" "" "" ...
+##  $ business_category                  : chr  "bar" "mens_tailor" "chinese_restaurant" "travel_agency" ...
+##  $ naics_code                         : int  722410 811490 722511 561510 721110 722511 611610 621210 812111 541219 ...
+##  $ sic_code                           : int  5813 7699 5812 4724 7041 5812 8299 8021 7241 8721 ...
+##  $ chain_id                           : chr  "" "" "" "" ...
+##  $ chain_name                         : chr  "" "" "" "" ...
+##  $ address                            : chr  "89 York St" "311 No/250 Pitt St" "Shop 42/1 Dixon St" "161 Castlereagh St" ...
+##  $ address2                           : chr  "" "" "" "" ...
+##  $ neighborhood                       : chr  "Sydney" "Sydney" "Sydney" "Darling Quarter, Sydney" ...
+##  $ city                               : chr  "Sydney" "Sydney" "Sydney" "Sydney" ...
+##  $ state                              : chr  "New South Wales" "New South Wales" "New South Wales" "New South Wales" ...
+##  $ postal_code                        : chr  "'2000" "'2000" "'2000" "'2000" ...
+##  $ country_code                       : chr  "au" "au" "au" "au" ...
+##  $ country                            : chr  "Australia" "Australia" "Australia" "Australia" ...
+##  $ latitude                           : chr  "-33,86953218" "-33,87258509" "-33,8768599" "-33,87223264" ...
+##  $ longitude                          : chr  "151,2060527" "151,2082896" "151,2037505" "151,2091981" ...
+##  $ dataplor_status                    : chr  "active" "active" "active" "active" ...
+##  $ open_closed_status                 : chr  "open" "open" "open" "open" ...
+##  $ open_closed_status_confidence_score: chr  "0,95" "0,304" "0,95" "0,38" ...
+##  $ opened_on                          : chr  "5/08/2013" "15/06/2023" "11/09/2014" "18/06/2019" ...
+##  $ popularity_score                   : chr  "0,973" "0,549" "0,93" "0,992" ...
+##  $ sentiment_score                    : chr  "0,7744" "0,8464" "0,49" "0,8836" ...
+##  $ website                            : chr  "http://thisisthebarbershop.com/" "http://www.zihil.net/" "" "https://www.klook.com/en-AU" ...
+##  $ monday_open                        : chr  "" "10:00:00 a.\xa0m." "11:00:00 a.\xa0m." "9:00:00 a.\xa0m." ...
+##  $ monday_close                       : chr  "" "5:00:00 p.\xa0m." "10:30:00 p.\xa0m." "6:00:00 p.\xa0m." ...
+##  $ tuesday_open                       : chr  "4:00:00 p.\xa0m." "10:00:00 a.\xa0m." "11:00:00 a.\xa0m." "9:00:00 a.\xa0m." ...
+##  $ tuesday_close                      : chr  "12:00:00 a.\xa0m." "5:00:00 p.\xa0m." "10:30:00 p.\xa0m." "6:00:00 p.\xa0m." ...
+##  $ wednesday_open                     : chr  "4:00:00 p.\xa0m." "10:00:00 a.\xa0m." "11:00:00 a.\xa0m." "9:00:00 a.\xa0m." ...
+##  $ wednesday_close                    : chr  "12:00:00 a.\xa0m." "5:00:00 p.\xa0m." "10:30:00 p.\xa0m." "6:00:00 p.\xa0m." ...
+##  $ thursday_open                      : chr  "4:00:00 p.\xa0m." "10:00:00 a.\xa0m." "11:00:00 a.\xa0m." "9:00:00 a.\xa0m." ...
+##  $ thursday_close                     : chr  "1:00:00 a.\xa0m." "5:00:00 p.\xa0m." "10:30:00 p.\xa0m." "6:00:00 p.\xa0m." ...
+##  $ friday_open                        : chr  "4:00:00 p.\xa0m." "10:00:00 a.\xa0m." "11:00:00 a.\xa0m." "9:00:00 a.\xa0m." ...
+##  $ friday_close                       : chr  "2:00:00 a.\xa0m." "5:00:00 p.\xa0m." "10:30:00 p.\xa0m." "6:00:00 p.\xa0m." ...
+##  $ saturday_open                      : chr  "4:00:00 p.\xa0m." "" "11:00:00 a.\xa0m." "" ...
+##  $ saturday_close                     : chr  "2:00:00 a.\xa0m." "" "10:30:00 p.\xa0m." "" ...
+##  $ sunday_open                        : chr  "" "11:00:00 a.\xa0m." "11:00:00 a.\xa0m." "" ...
+##  $ sunday_close                       : chr  "" "5:00:00 p.\xa0m." "10:30:00 p.\xa0m." "" ...
+##  $ place_attributes                   : chr  "{\"feels_cozy\":true,\"has_takeout\":false,\"serves_beer\":true,\"serves_food\":true,\"serves_wine\":true,\"fee"| __truncated__ "{\"wi_fi\":false,\"welcomes_lgbtq\":true,\"has_onsite_services\":true,\"has_restroom_unisex\":true,\"requires_a"| __truncated__ "{\"has_takeout\":true,\"serves_beer\":true,\"feels_casual\":true,\"has_delivery\":true,\"serves_lunch\":true,\""| __truncated__ "{\"has_wheelchair_accessible_entrance\":true}" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Clean Special Characters}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\SpecialCharTok{\textasciitilde{}} \FunctionTok{iconv}\NormalTok{(., }\AttributeTok{to =} \StringTok{"UTF{-}8"}\NormalTok{, }\AttributeTok{sub =} \StringTok{"byte"}\NormalTok{)))  }\CommentTok{\# Replace problematic characters}
+
+\CommentTok{\# Convert to Lowercase and Replace Spaces with Underscores}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\SpecialCharTok{\textasciitilde{}} \FunctionTok{gsub}\NormalTok{(}\StringTok{" "}\NormalTok{, }\StringTok{"\_"}\NormalTok{, }\FunctionTok{tolower}\NormalTok{(.))))}
+
+\CommentTok{\# Replace Commas with Dots and Convert to Numeric}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{popularity\_score }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{, data}\SpecialCharTok{$}\NormalTok{popularity\_score))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{sentiment\_score }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{, data}\SpecialCharTok{$}\NormalTok{sentiment\_score))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{latitude }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{, data}\SpecialCharTok{$}\NormalTok{latitude))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{longitude }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{, data}\SpecialCharTok{$}\NormalTok{longitude))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{open\_closed\_status\_confidence\_score }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"."}\NormalTok{, data}\SpecialCharTok{$}\NormalTok{open\_closed\_status\_confidence\_score))}
+
+\CommentTok{\# Replace Empty Strings with NA}
+\NormalTok{data[data }\SpecialCharTok{==} \StringTok{""}\NormalTok{] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+
+\CommentTok{\# Convert \textquotesingle{}opened\_on\textquotesingle{} to Date Format}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{opened\_on }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{opened\_on, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{)}
+
+\CommentTok{\# Clean Hours Columns}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{29}\SpecialCharTok{:}\DecValTok{42}\NormalTok{, }
+                \SpecialCharTok{\textasciitilde{}}\NormalTok{ \{}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\textless{}a0\textgreater{}"}\NormalTok{, }\StringTok{""}\NormalTok{, .)}
+\NormalTok{                \}))}
+
+\CommentTok{\# Identify Unique Values in Key Columns}
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{main\_category)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "bars"                           "professional_services"         
+##  [3] "dining"                         "travel"                        
+##  [5] "entertainment_and_recreation"   "healthcare"                    
+##  [7] "beauty"                         "home_services"                 
+##  [9] "civil_society"                  "retail"                        
+## [11] "transportation_services"        "convenience_and_grocery_stores"
+## [13] "automotive_services"            NA                              
+## [15] "uncategorized"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{sub\_category)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "specialized"               "licensed_professional"    
+##  [3] "diner"                     "vacation_services"        
+##  [5] "lodging"                   "specialized_cuisine"      
+##  [7] "sports_and_recreation"     "specialties"              
+##  [9] "personal_grooming"         "specialized_services"     
+## [11] "education"                 "cafe"                     
+## [13] "services"                  "government"               
+## [15] NA                          "educational"              
+## [17] "cosmetics"                 "social_service"           
+## [19] "hospitals_clinics"         "performance_entertainment"
+## [21] "consumer_goods"            "pharmacy_supplies"        
+## [23] "private_transportation"    "specialty_goods"          
+## [25] "automobile"                "public_transportation"    
+## [27] "adult_entertainment"       "supplies"                 
+## [29] "other_vehicles"            "motorcycles"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{neighborhood)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "sydney"                  "darling_quarter,_sydney"
+## [3] "darlinghurst"            NA                       
+## [5] "surry_hills"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{city)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "sydney" NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{state)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "new_south_wales" NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{country\_code)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "au" NA   "gb"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{country)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "australia"                                                 
+## [2] NA                                                          
+## [3] "united_kingdom_of_great_britain_and_northern_ireland_(the)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{dataplor\_status)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "active"   "inactive" NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{open\_closed\_status)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "open"               "permanently_closed" "temporarily_closed"
+## [4] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Identify Duplicates}
+\NormalTok{duplicates }\OtherTok{\textless{}{-}}\NormalTok{ data[}\FunctionTok{duplicated}\NormalTok{(data), ]}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data[}\SpecialCharTok{!}\FunctionTok{duplicated}\NormalTok{(data), ]}
+
+\CommentTok{\# Visualize Missing Values}
+\FunctionTok{gg\_miss\_var}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{index_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Check Count of NA Values by Column}
+\FunctionTok{colSums}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                         dataplor_id                     parent_location 
+##                                   1                                5888 
+##                                name                       main_category 
+##                                   1                                   1 
+##                        sub_category                    sub_sub_category 
+##                                2307                                9498 
+##                   business_category                          naics_code 
+##                                   1                                   2 
+##                            sic_code                            chain_id 
+##                                2080                                9592 
+##                          chain_name                             address 
+##                                9592                                 240 
+##                            address2                        neighborhood 
+##                                9941                                   1 
+##                                city                               state 
+##                                   1                                   1 
+##                         postal_code                        country_code 
+##                                   4                                   1 
+##                             country                            latitude 
+##                                   1                                   1 
+##                           longitude                     dataplor_status 
+##                                   1                                   1 
+##                  open_closed_status open_closed_status_confidence_score 
+##                                   1                                   1 
+##                           opened_on                    popularity_score 
+##                                4290                                3163 
+##                     sentiment_score                             website 
+##                                3980                                2697 
+##                         monday_open                        monday_close 
+##                                3260                                3260 
+##                        tuesday_open                       tuesday_close 
+##                                3170                                3170 
+##                      wednesday_open                     wednesday_close 
+##                                3154                                3154 
+##                       thursday_open                      thursday_close 
+##                                3138                                3138 
+##                         friday_open                        friday_close 
+##                                3161                                3161 
+##                       saturday_open                      saturday_close 
+##                                6625                                6625 
+##                         sunday_open                        sunday_close 
+##                                7453                                7453 
+##                    place_attributes 
+##                                2845
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Statistical Summary of Numeric Columns}
+\FunctionTok{summary}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  dataplor_id        parent_location        name           main_category     
+##  Length:9945        Length:9945        Length:9945        Length:9945       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  sub_category       sub_sub_category   business_category   naics_code       
+##  Length:9945        Length:9945        Length:9945        Length:9945       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##    sic_code           chain_id          chain_name          address         
+##  Length:9945        Length:9945        Length:9945        Length:9945       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##    address2         neighborhood           city              state          
+##  Length:9945        Length:9945        Length:9945        Length:9945       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  postal_code        country_code         country             latitude     
+##  Length:9945        Length:9945        Length:9945        Min.   :-33.88  
+##  Class :character   Class :character   Class :character   1st Qu.:-33.87  
+##  Mode  :character   Mode  :character   Mode  :character   Median :-33.87  
+##                                                           Mean   :-33.87  
+##                                                           3rd Qu.:-33.87  
+##                                                           Max.   :-33.87  
+##                                                           NA's   :1       
+##    longitude     dataplor_status    open_closed_status
+##  Min.   :151.2   Length:9945        Length:9945       
+##  1st Qu.:151.2   Class :character   Class :character  
+##  Median :151.2   Mode  :character   Mode  :character  
+##  Mean   :151.2                                        
+##  3rd Qu.:151.2                                        
+##  Max.   :151.2                                        
+##  NA's   :1                                            
+##  open_closed_status_confidence_score   opened_on          popularity_score
+##  Min.   :0.0000                      Min.   :2008-09-27   Min.   :0.001   
+##  1st Qu.:0.3000                      1st Qu.:2016-10-26   1st Qu.:0.010   
+##  Median :0.3040                      Median :2018-11-09   Median :0.131   
+##  Mean   :0.4593                      Mean   :2018-12-18   Mean   :0.312   
+##  3rd Qu.:0.7000                      3rd Qu.:2021-08-07   3rd Qu.:0.624   
+##  Max.   :0.9500                      Max.   :2024-06-04   Max.   :1.000   
+##  NA's   :1                           NA's   :4290         NA's   :3163    
+##  sentiment_score   website          monday_open        monday_close      
+##  Min.   :0.040   Length:9945        Length:9945        Length:9945       
+##  1st Qu.:0.608   Class :character   Class :character   Class :character  
+##  Median :0.846   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :0.753                                                           
+##  3rd Qu.:1.000                                                           
+##  Max.   :1.000                                                           
+##  NA's   :3980                                                            
+##  tuesday_open       tuesday_close      wednesday_open     wednesday_close   
+##  Length:9945        Length:9945        Length:9945        Length:9945       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  thursday_open      thursday_close     friday_open        friday_close      
+##  Length:9945        Length:9945        Length:9945        Length:9945       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  saturday_open      saturday_close     sunday_open        sunday_close      
+##  Length:9945        Length:9945        Length:9945        Length:9945       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  place_attributes  
+##  Length:9945       
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Imputation of Missing Values}
+\NormalTok{data\_imputed\_summary }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(main\_category) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{avg\_popularity =} \FunctionTok{mean}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(popularity\_score), }\FunctionTok{median}\NormalTok{(popularity\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), popularity\_score), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{avg\_sentiment =} \FunctionTok{mean}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(sentiment\_score), }\FunctionTok{median}\NormalTok{(sentiment\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), sentiment\_score), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{count =} \FunctionTok{n}\NormalTok{()}
+\NormalTok{  )}
+
+\NormalTok{original\_summary }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(main\_category) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{avg\_popularity =} \FunctionTok{mean}\NormalTok{(popularity\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{avg\_sentiment =} \FunctionTok{mean}\NormalTok{(sentiment\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{count =} \FunctionTok{n}\NormalTok{()}
+\NormalTok{  )}
+
+\NormalTok{comparison }\OtherTok{\textless{}{-}}\NormalTok{ original\_summary }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Original\_Avg\_Popularity =}\NormalTok{ avg\_popularity, }\AttributeTok{Original\_Avg\_Sentiment =}\NormalTok{ avg\_sentiment) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(data\_imputed\_summary }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{rename}\NormalTok{(}\AttributeTok{Imputed\_Avg\_Popularity =}\NormalTok{ avg\_popularity, }\AttributeTok{Imputed\_Avg\_Sentiment =}\NormalTok{ avg\_sentiment),}
+            \AttributeTok{by =} \StringTok{"main\_category"}\NormalTok{)}
+
+\CommentTok{\# Display the comparison}
+\FunctionTok{print}\NormalTok{(comparison)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 15 x 7
+##    main_category           Original_Avg_Popular~1 Original_Avg_Sentiment count.x
+##    <chr>                                    <dbl>                  <dbl>   <int>
+##  1 automotive_services                      0.227                  0.654      64
+##  2 bars                                     0.688                  0.692      96
+##  3 beauty                                   0.485                  0.808     399
+##  4 civil_society                            0.236                  0.711    1803
+##  5 convenience_and_grocer~                  0.373                  0.593      76
+##  6 dining                                   0.668                  0.663     768
+##  7 entertainment_and_recr~                  0.391                  0.805     319
+##  8 healthcare                               0.242                  0.806     709
+##  9 home_services                            0.204                  0.787     230
+## 10 professional_services                    0.186                  0.815    3797
+## 11 retail                                   0.390                  0.716    1300
+## 12 transportation_services                  0.200                  0.608     114
+## 13 travel                                   0.342                  0.710     266
+## 14 uncategorized                            0.001                  0.04        3
+## 15 <NA>                                   NaN                    NaN           1
+## # i abbreviated name: 1: Original_Avg_Popularity
+## # i 3 more variables: Imputed_Avg_Popularity <dbl>,
+## #   Imputed_Avg_Sentiment <dbl>, count.y <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Prepare data for the plot}
+\NormalTok{comparison\_long }\OtherTok{\textless{}{-}}\NormalTok{ comparison }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =} \FunctionTok{c}\NormalTok{(Original\_Avg\_Popularity, Imputed\_Avg\_Popularity, Original\_Avg\_Sentiment, Imputed\_Avg\_Sentiment),}
+    \AttributeTok{names\_to =} \FunctionTok{c}\NormalTok{(}\StringTok{"Type"}\NormalTok{, }\StringTok{".value"}\NormalTok{),}
+    \AttributeTok{names\_pattern =} \StringTok{"(.+)\_(.+)"}
+\NormalTok{  )}
+
+\CommentTok{\# Plot of comparison with softer colors}
+\FunctionTok{ggplot}\NormalTok{(comparison\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ main\_category)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ Popularity, }\AttributeTok{fill =} \StringTok{"Popularity"}\NormalTok{), }\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ Sentiment, }\AttributeTok{fill =} \StringTok{"Sentiment"}\NormalTok{), }\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Popularity"} \OtherTok{=} \StringTok{"\#4F8C8C"}\NormalTok{, }\StringTok{"Sentiment"} \OtherTok{=} \StringTok{"\#B0C4DE"}\NormalTok{), }
+                    \AttributeTok{name =} \StringTok{"Metric Type"}\NormalTok{, }
+                    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Popularity"}\NormalTok{, }\StringTok{"Sentiment"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Comparison of Imputed vs Non{-}Imputed Data by Main Category"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Main Category"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Average Value"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2 rows containing missing values or values outside the scale range
+## (`geom_bar()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 2 rows containing missing values or values outside the scale range
+## (`geom_bar()`).
+\end{verbatim}
+
+\includegraphics{index_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Conclusion on Data Imputation}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(main\_category) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{popularity\_score =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(popularity\_score), }\FunctionTok{median}\NormalTok{(popularity\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), popularity\_score),}
+    \AttributeTok{sentiment\_score =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(sentiment\_score), }\FunctionTok{median}\NormalTok{(sentiment\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), sentiment\_score)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{()}
+
+\CommentTok{\# Display the distribution of main business categories}
+\FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ main\_category)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Main Category"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Frequency"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Distribution of Main Business Categories"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{index_files/figure-latex/unnamed-chunk-1-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Select the 20 most common categories for the business\_category variable}
+\NormalTok{top\_categories }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(}\FunctionTok{sort}\NormalTok{(}\FunctionTok{table}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{business\_category), }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{)[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{])}
+\NormalTok{data\_top }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(business\_category }\SpecialCharTok{\%in\%}\NormalTok{ top\_categories)}
+
+\CommentTok{\# Summary of popularity and sentiment by business\_category, including main\_category}
+\NormalTok{summary\_popularity\_sentiment }\OtherTok{\textless{}{-}}\NormalTok{ data\_top }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(business\_category) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{avg\_popularity =} \FunctionTok{mean}\NormalTok{(popularity\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{avg\_sentiment =} \FunctionTok{mean}\NormalTok{(sentiment\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{count =} \FunctionTok{n}\NormalTok{()}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(data\_top }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(business\_category, main\_category) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{distinct}\NormalTok{(), }\AttributeTok{by =} \StringTok{"business\_category"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(avg\_popularity))}
+
+\CommentTok{\# Display results}
+\FunctionTok{print}\NormalTok{(summary\_popularity\_sentiment)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 5
+##    business_category            avg_popularity avg_sentiment count main_category
+##    <chr>                                 <dbl>         <dbl> <int> <chr>        
+##  1 restaurant                           0.625          0.675   116 dining       
+##  2 cafe                                 0.588          0.684   137 dining       
+##  3 jewelry_store                        0.446          0.806    85 retail       
+##  4 shoe_store                           0.424          0.621    91 retail       
+##  5 beauty_salon                         0.424          0.836   109 beauty       
+##  6 clothing_store                       0.311          0.669   177 retail       
+##  7 educational_consultant               0.276          0.914   239 professional~
+##  8 training_center                      0.194          0.793    81 civil_society
+##  9 real_estate_agency                   0.166          0.725    94 professional~
+## 10 employment_agency                    0.150          0.790   130 civil_society
+## 11 law_firm                             0.149          0.877   214 professional~
+## 12 travel_agency                        0.142          0.716    97 travel       
+## 13 corporate_office                     0.102          0.738   258 civil_society
+## 14 legal_services                       0.0924         0.915   160 professional~
+## 15 consultant                           0.0769         0.931   136 professional~
+## 16 lawyer                               0.0734         0.904    87 professional~
+## 17 marketing_agency                     0.0722         0.928   112 professional~
+## 18 software_company                     0.0679         0.940   304 professional~
+## 19 psychologist                         0.058          0.935    90 healthcare   
+## 20 business_management_consult~         0.0478         0.957   169 professional~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Jittered plot of faceted by business\_category}
+\FunctionTok{ggplot}\NormalTok{(data\_top, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ popularity\_score, }\AttributeTok{y =}\NormalTok{ sentiment\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.02}\NormalTok{, }\AttributeTok{height =} \FloatTok{0.02}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Adjust \textquotesingle{}width\textquotesingle{} and \textquotesingle{}height\textquotesingle{} as needed}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ business\_category) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Popularity Score"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Sentiment Score"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Relationship Between Popularity and Sentiment (Top 20 Categories) with Jitter"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{index_files/figure-latex/unnamed-chunk-1-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Boxplot for popularity score by business category}
+\FunctionTok{ggplot}\NormalTok{(data\_top, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ business\_category, }\AttributeTok{y =}\NormalTok{ popularity\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}  \CommentTok{\# Rotate boxplot for better visualization}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Business Category"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Popularity Score"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Distribution of Popularity Score by Business Category"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{index_files/figure-latex/unnamed-chunk-1-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Boxplot for sentiment score by business category}
+\FunctionTok{ggplot}\NormalTok{(data\_top, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ business\_category, }\AttributeTok{y =}\NormalTok{ sentiment\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}  \CommentTok{\# Rotate boxplot for better visualization}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Business Category"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Sentiment Score"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Distribution of Sentiment Score by Business Category"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{index_files/figure-latex/unnamed-chunk-1-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Popularity and sentiment based on open or closed category, adjusted to two levels "open" and "closed" to conduct a t{-}test that allows understanding the significance of the scores regarding the likelihood of the business being open or closed}
+\NormalTok{data\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(open\_closed\_status)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{open\_closed\_status =} \FunctionTok{ifelse}\NormalTok{(open\_closed\_status }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"permanently\_closed"}\NormalTok{, }\StringTok{"temporarily\_closed"}\NormalTok{), }
+                                     \StringTok{"closed"}\NormalTok{, }
+\NormalTok{                                     open\_closed\_status))}
+
+\CommentTok{\# T{-}test for Popularity}
+\NormalTok{t\_test\_popularity }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(popularity\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ open\_closed\_status, }\AttributeTok{data =}\NormalTok{ data\_filtered)}
+\FunctionTok{print}\NormalTok{(t\_test\_popularity)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  popularity_score by open_closed_status
+## t = -8.4276, df = 3110.1, p-value < 2.2e-16
+## alternative hypothesis: true difference in means between group closed and group open is not equal to 0
+## 95 percent confidence interval:
+##  -0.07480322 -0.04656588
+## sample estimates:
+## mean in group closed   mean in group open 
+##            0.1996100            0.2602945
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# T{-}test for Sentiment}
+\NormalTok{t\_test\_sentiment }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(sentiment\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ open\_closed\_status, }\AttributeTok{data =}\NormalTok{ data\_filtered)}
+\FunctionTok{print}\NormalTok{(t\_test\_sentiment)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  sentiment_score by open_closed_status
+## t = -1.4879, df = 2734.2, p-value = 0.1369
+## alternative hypothesis: true difference in means between group closed and group open is not equal to 0
+## 95 percent confidence interval:
+##  -0.02074928  0.00284547
+## sample estimates:
+## mean in group closed   mean in group open 
+##            0.8056666            0.8146185
+\end{verbatim}
+
+\end{document}

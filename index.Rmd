@@ -1,0 +1,298 @@
+---
+title: "Take-Home Assessment"
+author: "Sebastián Sánchez Cuartas"
+date: ""
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+      position: "left"
+    theme: flatly
+    highlight: tango
+---
+
+```{=html}
+<style>
+/* Mantiene la misma fuente para los blockquotes */
+blockquote {
+    font-family: inherit; /* Usa la misma fuente que el resto del texto */
+    font-size: inherit; /* Usa el mismo tamaño de fuente que el resto del texto */
+}
+
+/* Ajusta el ancho del menú de la tabla de contenido flotante */
+.tocify {
+    width: 1300px; /* Ajusta este valor según sea necesario */
+}
+.tocify-wrapper {
+    width: 1300px; /* Ajusta este valor según sea necesario */
+}
+</style>
+```
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(1) Data Cleaning and Preparation**
+
+```{r, echo=TRUE, results='hide', warning=FALSE, message=FALSE}
+library(dplyr)
+
+# Load the CSV file
+data <- read.csv("C:/Users/Usuario/Downloads/Take_home_data.csv", stringsAsFactors = FALSE, sep = ";")
+
+# Summary of the data frame structure
+str(data)
+
+# Clean special characters
+data <- data %>%
+  mutate(across(-c(1, 2), ~ iconv(., to = "UTF-8", sub = "byte")))  
+
+# Convert to lowercase and replace whitespace with underscores, except for columns 1 and 2, which may contain uppercase codes
+data <- data %>%
+  mutate(across(-c(1, 2), ~ gsub(" ", "_", tolower(.))))
+
+# Replace commas with periods and convert to numeric
+data$popularity_score <- as.numeric(gsub(",", ".", data$popularity_score))
+data$sentiment_score <- as.numeric(gsub(",", ".", data$sentiment_score))
+data$latitude <- as.numeric(gsub(",", ".", data$latitude))
+data$longitude <- as.numeric(gsub(",", ".", data$longitude))
+data$open_closed_status_confidence_score <- as.numeric(gsub(",", ".", data$open_closed_status_confidence_score))
+
+# Replace empty strings with NA
+data[data == ""] <- NA
+
+# Convert the 'opened_on' column to date format
+data$opened_on <- as.Date(data$opened_on, format = "%d/%m/%Y")
+
+# Remove the "<a0>" character to make the hours in the corresponding columns more readable
+data <- data %>%
+  mutate(across(29:42, 
+                ~ {gsub("<a0>", "", .)
+                }))
+
+# Check unique values in key columns to detect errors
+unique(data$main_category)
+unique(data$sub_category)
+unique(data$neighborhood)
+unique(data$city)
+unique(data$state)
+unique(data$country_code)
+unique(data$country)
+unique(data$dataplor_status)
+unique(data$open_closed_status)
+
+# Identify duplicate rows
+duplicates <- data[duplicated(data), ]
+
+# Remove duplicates
+data <- data[!duplicated(data), ]
+
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(2) Missing Values Visualization**
+
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=6, out.width="100%"}
+# Visualize missing values
+library(naniar)
+
+gg_miss_var(data)
+
+# Check the number of NA values by column
+colSums(is.na(data))
+
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(3) Imputation of Missing Values and Comparative Analysis**
+
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=6, out.width="100%"}
+
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+
+#Given the number of missing values in popularity_score and sentiment_score, which is approximately one-third of the data, we perform a comparative analysis between imputed vs. non-imputed elements to make a decision.
+
+# Impute missing values for popularity and sentiment scores directly in the dataset
+data <- data %>%
+  group_by(main_category) %>%
+  mutate(
+    popularity_score_imputed = ifelse(is.na(popularity_score), median(popularity_score, na.rm = TRUE), popularity_score),
+    sentiment_score_imputed = ifelse(is.na(sentiment_score), median(sentiment_score, na.rm = TRUE), sentiment_score)
+  ) %>%
+  ungroup()
+
+# Reshape data for visualization
+data_comparison <- data %>%
+  pivot_longer(
+    cols = c(popularity_score, popularity_score_imputed, sentiment_score, sentiment_score_imputed),
+    names_to = c(".value", "Type"),
+    names_pattern = "(.+)_score(_imputed)?"
+  )
+
+# Create boxplots for comparison
+ggplot(data_comparison, aes(x = main_category, y = popularity, fill = Type)) +
+  geom_boxplot() +
+  theme_minimal() +
+  xlab("main_category") +
+  ylab("popularity") +
+  ggtitle("Distribution of popularity (Original vs Imputed)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(data_comparison, aes(x = main_category, y = sentiment, fill = Type)) +
+  geom_boxplot() +
+  theme_minimal() +
+  xlab("main_category") +
+  ylab("sentiment") +
+  ggtitle("Distribution of sentiment (Original vs Imputed)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+# From the analysis above, it is concluded that the imputed data does not differ significantly from the non-imputed data. Therefore, we will proceed with the analyses using the imputed data, as it provides a larger sample size for subsequent analyses. However, it is important to note that this approach sacrifices some of the original data's variability.
+
+
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(4) Distribution of Main Business Categories**
+
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=6, out.width="100%"}
+
+# View the distribution of main business categories
+
+ggplot(data, aes(x = main_category)) +
+  geom_bar() +
+  theme_minimal() +
+  xlab("Main Category") +
+  ylab("Frequency") +
+  ggtitle("Distribution of Main Business Categories") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Justification: This plot shows the distribution of different types of businesses by main category, making it easier to identify which types of businesses are most common in the database.
+
+# Importance for the Client: Understanding the most prevalent business categories can help the client identify segments with a high market presence and explore opportunities for expansion or improvement in less represented categories.
+
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(5) Summary of Popularity and Sentiment by Business Category**
+
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=6, out.width="100%"}
+
+# Select the 20 most common categories for the business_category variable
+top_categories <- names(sort(table(data$business_category), decreasing = TRUE)[1:20])
+data_top <- data %>%
+  filter(business_category %in% top_categories)
+
+# Summary of popularity and sentiment by business_category, including main_category
+summary_popularity_sentiment <- data_top %>%
+  group_by(business_category) %>%
+  summarise(
+    avg_popularity = mean(popularity_score, na.rm = TRUE),
+    avg_sentiment = mean(sentiment_score, na.rm = TRUE),
+    count = n()
+  ) %>%
+  left_join(data_top %>% select(business_category, main_category) %>% distinct(), by = "business_category") %>%
+  arrange(desc(avg_popularity))
+
+# View the results
+print(summary_popularity_sentiment)
+
+# Importance for the Client: This analysis allows the client to identify the most prominent categories in terms of popularity and positive perception, which is crucial for determining which areas to enhance or improve.
+
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(6) Relationship Between Popularity and Sentiment for Top Business Categories**
+
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=6, out.width="100%"}
+
+# Faceted plot for the main business_categories using jitter to avoid overlap
+ggplot(data_top, aes(x = popularity_score, y = sentiment_score)) +
+  geom_jitter(alpha = 0.5, width = 0.02, height = 0.02) +  # Adjust 'width' and 'height' as needed
+  facet_wrap(~ business_category) +
+  theme_minimal() +
+  xlab("Popularity Score") +
+  ylab("Sentiment Score") +
+  ggtitle("Relationship between Popularity and Sentiment (Top 20 Categories) with Jitter")
+
+# Justification: Filtering the 20 most common categories helps focus the analysis on those with greater relevance. This avoids visual overload and facilitates the interpretation of the graphs and results.
+
+# Importance for the Client: This helps identify specific patterns between popularity and sentiment for each business category, showing whether there are categories with high popularity and low sentiment (or vice versa), which could be useful for adjusting marketing and customer service strategies.
+
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(7) Distribution of Popularity and Sentiment Scores by Business Category**
+
+```{r, warning=FALSE, message=FALSE, fig.width=9, fig.height=6, out.width="100%"}
+
+# Complementary boxplot to visualize the distribution of popularity and sentiment scores by business category
+ggplot(data_top, aes(x = business_category, y = popularity_score)) +
+  geom_boxplot() +
+  theme_minimal() +
+  coord_flip() +  # Rotate the boxplot for better visualization
+  xlab("Business Category") +
+  ylab("Popularity Score") +
+  ggtitle("Distribution of Popularity Scores by Business Category")
+
+ggplot(data_top, aes(x = business_category, y = sentiment_score)) +
+  geom_boxplot() +
+  theme_minimal() +
+  coord_flip() +  # Rotate the boxplot for better visualization
+  xlab("Business Category") +
+  ylab("Sentiment Score") +
+  ggtitle("Distribution of Sentiment Scores by Business Category")
+
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(8) Analysis of Popularity and Sentiment Based on Business Open/Closed Status**
+
+```{r, warning=FALSE, message=FALSE}
+
+# Popularity and sentiment based on open or closed status, adjusted to two levels "open" and "closed" to perform a t-test that allows understanding the significance of scores regarding the likelihood of the business being open or closed
+
+data_filtered <- data %>%
+  filter(!is.na(open_closed_status)) %>%
+  mutate(open_closed_status = ifelse(open_closed_status %in% c("permanently_closed", "temporarily_closed"), "closed", open_closed_status))
+
+# T-tests for popularity and sentiment by open/closed status
+t_test_popularity <- t.test(popularity_score ~ open_closed_status, data = data_filtered)
+print(t_test_popularity)
+
+t_test_sentiment <- t.test(sentiment_score ~ open_closed_status, data = data_filtered)
+print(t_test_sentiment)
+
+
+
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(9)  SQL Query**
+
+```{r, warning=FALSE, message=FALSE}
+
+# Since the dataset is not very large, I can perform the query in R using the sqldf package.
+
+library(sqldf)
+
+# Ejecutar la consulta SQL usando sqldf
+result <- sqldf("SELECT main_category, COUNT(*) AS category_count
+                 FROM data
+                 GROUP BY main_category")
+
+# Ver el resultado
+print(result)
+
+```

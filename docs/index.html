@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sebastián Sánchez Cuartas" />
+
+
+<title>Take-Home Assessment</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Take-Home Assessment</h1>
+<h4 class="author">Sebastián Sánchez Cuartas</h4>
+
+</div>
+
+
+<style>
+/* Mantiene la misma fuente para los blockquotes */
+blockquote {
+    font-family: inherit; /* Usa la misma fuente que el resto del texto */
+    font-size: inherit; /* Usa el mismo tamaño de fuente que el resto del texto */
+}
+
+/* Ajusta el ancho del menú de la tabla de contenido flotante */
+.tocify {
+    width: 1300px; /* Ajusta este valor según sea necesario */
+}
+.tocify-wrapper {
+    width: 1300px; /* Ajusta este valor según sea necesario */
+}
+</style>
+<p>_____________________________________________________________________________________________________________________________________</p>
+<div id="data-cleaning-and-preparation" class="section level2">
+<h2><strong>(1) Data Cleaning and Preparation</strong></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Load the CSV file</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;C:/Users/Usuario/Downloads/Take_home_data.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># Summary of the data frame structure</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">str</span>(data)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Clean special characters</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="sc">~</span> <span class="fu">iconv</span>(., <span class="at">to =</span> <span class="st">&quot;UTF-8&quot;</span>, <span class="at">sub =</span> <span class="st">&quot;byte&quot;</span>)))  </span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># Convert to lowercase and replace whitespace with underscores, except for columns 1 and 2, which may contain uppercase codes</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="sc">~</span> <span class="fu">gsub</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;_&quot;</span>, <span class="fu">tolower</span>(.))))</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co"># Replace commas with periods and convert to numeric</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>data<span class="sc">$</span>popularity_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, data<span class="sc">$</span>popularity_score))</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>data<span class="sc">$</span>sentiment_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, data<span class="sc">$</span>sentiment_score))</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>data<span class="sc">$</span>latitude <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, data<span class="sc">$</span>latitude))</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>data<span class="sc">$</span>longitude <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, data<span class="sc">$</span>longitude))</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>data<span class="sc">$</span>open_closed_status_confidence_score <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;.&quot;</span>, data<span class="sc">$</span>open_closed_status_confidence_score))</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co"># Replace empty strings with NA</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>data[data <span class="sc">==</span> <span class="st">&quot;&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co"># Convert the &#39;opened_on&#39; column to date format</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>data<span class="sc">$</span>opened_on <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data<span class="sc">$</span>opened_on, <span class="at">format =</span> <span class="st">&quot;%d/%m/%Y&quot;</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co"># Remove the &quot;&lt;a0&gt;&quot; character to make the hours in the corresponding columns more readable</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="dv">29</span><span class="sc">:</span><span class="dv">42</span>, </span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>                <span class="sc">~</span> {<span class="fu">gsub</span>(<span class="st">&quot;&lt;a0&gt;&quot;</span>, <span class="st">&quot;&quot;</span>, .)</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>                }))</span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="co"># Check unique values in key columns to detect errors</span></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>main_category)</span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>sub_category)</span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>neighborhood)</span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>city)</span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>state)</span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>country_code)</span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>country)</span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>dataplor_status)</span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="fu">unique</span>(data<span class="sc">$</span>open_closed_status)</span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a><span class="co"># Identify duplicate rows</span></span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a>duplicates <span class="ot">&lt;-</span> data[<span class="fu">duplicated</span>(data), ]</span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a><span class="co"># Remove duplicates</span></span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="sc">!</span><span class="fu">duplicated</span>(data), ]</span></code></pre></div>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div id="missing-values-visualization" class="section level2">
+<h2><strong>(2) Missing Values Visualization</strong></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Visualize missing values</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">gg_miss_var</span>(data)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="100%" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Check the number of NA values by column</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(data))</span></code></pre></div>
+<pre><code>##                         dataplor_id                     parent_location 
+##                                   1                                5888 
+##                                name                       main_category 
+##                                   1                                   1 
+##                        sub_category                    sub_sub_category 
+##                                2307                                9498 
+##                   business_category                          naics_code 
+##                                   1                                   2 
+##                            sic_code                            chain_id 
+##                                2080                                9592 
+##                          chain_name                             address 
+##                                9592                                 240 
+##                            address2                        neighborhood 
+##                                9941                                   1 
+##                                city                               state 
+##                                   1                                   1 
+##                         postal_code                        country_code 
+##                                   4                                   1 
+##                             country                            latitude 
+##                                   1                                   1 
+##                           longitude                     dataplor_status 
+##                                   1                                   1 
+##                  open_closed_status open_closed_status_confidence_score 
+##                                   1                                   1 
+##                           opened_on                    popularity_score 
+##                                4290                                3163 
+##                     sentiment_score                             website 
+##                                3980                                2697 
+##                         monday_open                        monday_close 
+##                                3260                                3260 
+##                        tuesday_open                       tuesday_close 
+##                                3170                                3170 
+##                      wednesday_open                     wednesday_close 
+##                                3154                                3154 
+##                       thursday_open                      thursday_close 
+##                                3138                                3138 
+##                         friday_open                        friday_close 
+##                                3161                                3161 
+##                       saturday_open                      saturday_close 
+##                                6625                                6625 
+##                         sunday_open                        sunday_close 
+##                                7453                                7453 
+##                    place_attributes 
+##                                2845</code></pre>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div id="imputation-of-missing-values-and-comparative-analysis"
+class="section level2">
+<h2><strong>(3) Imputation of Missing Values and Comparative
+Analysis</strong></h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#Given the number of missing values in popularity_score and sentiment_score, which is approximately one-third of the data, we perform a comparative analysis between imputed vs. non-imputed elements to make a decision.</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co"># Impute missing values for popularity and sentiment scores directly in the dataset</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="fu">group_by</span>(main_category) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>    <span class="at">popularity_score_imputed =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(popularity_score), <span class="fu">median</span>(popularity_score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), popularity_score),</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    <span class="at">sentiment_score_imputed =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(sentiment_score), <span class="fu">median</span>(sentiment_score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), sentiment_score)</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co"># Reshape data for visualization</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>data_comparison <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(popularity_score, popularity_score_imputed, sentiment_score, sentiment_score_imputed),</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;Type&quot;</span>),</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">&quot;(.+)_score(_imputed)?&quot;</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>  )</span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co"># Create boxplots for comparison</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="fu">ggplot</span>(data_comparison, <span class="fu">aes</span>(<span class="at">x =</span> main_category, <span class="at">y =</span> popularity, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;main_category&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;popularity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of popularity (Original vs Imputed)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="100%" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(data_comparison, <span class="fu">aes</span>(<span class="at">x =</span> main_category, <span class="at">y =</span> sentiment, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;main_category&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;sentiment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of sentiment (Original vs Imputed)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-3-2.png" width="100%" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># From the analysis above, it is concluded that the imputed data does not differ significantly from the non-imputed data. Therefore, we will proceed with the analyses using the imputed data, as it provides a larger sample size for subsequent analyses. However, it is important to note that this approach sacrifices some of the original data&#39;s variability.</span></span></code></pre></div>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div id="distribution-of-main-business-categories"
+class="section level2">
+<h2><strong>(4) Distribution of Main Business Categories</strong></h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># View the distribution of main business categories</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> main_category)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Main Category&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Main Business Categories&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="100%" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Justification: This plot shows the distribution of different types of businesses by main category, making it easier to identify which types of businesses are most common in the database.</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co"># Importance for the Client: Understanding the most prevalent business categories can help the client identify segments with a high market presence and explore opportunities for expansion or improvement in less represented categories.</span></span></code></pre></div>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div id="summary-of-popularity-and-sentiment-by-business-category"
+class="section level2">
+<h2><strong>(5) Summary of Popularity and Sentiment by Business
+Category</strong></h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Select the 20 most common categories for the business_category variable</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>top_categories <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">table</span>(data<span class="sc">$</span>business_category), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>])</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>data_top <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="fu">filter</span>(business_category <span class="sc">%in%</span> top_categories)</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co"># Summary of popularity and sentiment by business_category, including main_category</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>summary_popularity_sentiment <span class="ot">&lt;-</span> data_top <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="fu">group_by</span>(business_category) <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>    <span class="at">avg_popularity =</span> <span class="fu">mean</span>(popularity_score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>    <span class="at">avg_sentiment =</span> <span class="fu">mean</span>(sentiment_score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>    <span class="at">count =</span> <span class="fu">n</span>()</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>  <span class="fu">left_join</span>(data_top <span class="sc">%&gt;%</span> <span class="fu">select</span>(business_category, main_category) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(), <span class="at">by =</span> <span class="st">&quot;business_category&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_popularity))</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co"># View the results</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="fu">print</span>(summary_popularity_sentiment)</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 5
+##    business_category            avg_popularity avg_sentiment count main_category
+##    &lt;chr&gt;                                 &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;        
+##  1 cafe                                 0.572          0.685   137 dining       
+##  2 restaurant                           0.553          0.677   116 dining       
+##  3 jewelry_store                        0.469          0.819    85 retail       
+##  4 shoe_store                           0.445          0.594    91 retail       
+##  5 beauty_salon                         0.403          0.822   109 beauty       
+##  6 educational_consultant               0.323          0.885   239 professional…
+##  7 clothing_store                       0.308          0.643   177 retail       
+##  8 training_center                      0.296          0.777    81 civil_society
+##  9 real_estate_agency                   0.241          0.547    94 professional…
+## 10 employment_agency                    0.215          0.769   130 civil_society
+## 11 law_firm                             0.185          0.820   214 professional…
+## 12 travel_agency                        0.164          0.701    97 travel       
+## 13 corporate_office                     0.145          0.644   258 civil_society
+## 14 consultant                           0.115          0.812   136 professional…
+## 15 legal_services                       0.115          0.869   160 professional…
+## 16 lawyer                               0.0966         0.819    87 professional…
+## 17 software_company                     0.0960         0.837   304 professional…
+## 18 marketing_agency                     0.0913         0.840   112 professional…
+## 19 business_management_consult…         0.0610         0.825   169 professional…
+## 20 psychologist                         0.0475         0.892    90 healthcare</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Importance for the Client: This analysis allows the client to identify the most prominent categories in terms of popularity and positive perception, which is crucial for determining which areas to enhance or improve.</span></span></code></pre></div>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div
+id="relationship-between-popularity-and-sentiment-for-top-business-categories"
+class="section level2">
+<h2><strong>(6) Relationship Between Popularity and Sentiment for Top
+Business Categories</strong></h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Faceted plot for the main business_categories using jitter to avoid overlap</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">ggplot</span>(data_top, <span class="fu">aes</span>(<span class="at">x =</span> popularity_score, <span class="at">y =</span> sentiment_score)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.02</span>, <span class="at">height =</span> <span class="fl">0.02</span>) <span class="sc">+</span>  <span class="co"># Adjust &#39;width&#39; and &#39;height&#39; as needed</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> business_category) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Popularity Score&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Sentiment Score&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Relationship between Popularity and Sentiment (Top 20 Categories) with Jitter&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="100%" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Justification: Filtering the 20 most common categories helps focus the analysis on those with greater relevance. This avoids visual overload and facilitates the interpretation of the graphs and results.</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co"># Importance for the Client: This helps identify specific patterns between popularity and sentiment for each business category, showing whether there are categories with high popularity and low sentiment (or vice versa), which could be useful for adjusting marketing and customer service strategies.</span></span></code></pre></div>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div
+id="distribution-of-popularity-and-sentiment-scores-by-business-category"
+class="section level2">
+<h2><strong>(7) Distribution of Popularity and Sentiment Scores by
+Business Category</strong></h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Complementary boxplot to visualize the distribution of popularity and sentiment scores by business category</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">ggplot</span>(data_top, <span class="fu">aes</span>(<span class="at">x =</span> business_category, <span class="at">y =</span> popularity_score)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span>  <span class="co"># Rotate the boxplot for better visualization</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Business Category&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Popularity Score&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Popularity Scores by Business Category&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="100%" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">ggplot</span>(data_top, <span class="fu">aes</span>(<span class="at">x =</span> business_category, <span class="at">y =</span> sentiment_score)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span>  <span class="co"># Rotate the boxplot for better visualization</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Business Category&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Sentiment Score&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Sentiment Scores by Business Category&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-7-2.png" width="100%" /></p>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div
+id="analysis-of-popularity-and-sentiment-based-on-business-openclosed-status"
+class="section level2">
+<h2><strong>(8) Analysis of Popularity and Sentiment Based on Business
+Open/Closed Status</strong></h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Popularity and sentiment based on open or closed status, adjusted to two levels &quot;open&quot; and &quot;closed&quot; to perform a t-test that allows understanding the significance of scores regarding the likelihood of the business being open or closed</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>data_filtered <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(open_closed_status)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">open_closed_status =</span> <span class="fu">ifelse</span>(open_closed_status <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;permanently_closed&quot;</span>, <span class="st">&quot;temporarily_closed&quot;</span>), <span class="st">&quot;closed&quot;</span>, open_closed_status))</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co"># T-tests for popularity and sentiment by open/closed status</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>t_test_popularity <span class="ot">&lt;-</span> <span class="fu">t.test</span>(popularity_score <span class="sc">~</span> open_closed_status, <span class="at">data =</span> data_filtered)</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="fu">print</span>(t_test_popularity)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  popularity_score by open_closed_status
+## t = -3.4404, df = 1109.7, p-value = 0.0006025
+## alternative hypothesis: true difference in means between group closed and group open is not equal to 0
+## 95 percent confidence interval:
+##  -0.06724881 -0.01840104
+## sample estimates:
+## mean in group closed   mean in group open 
+##            0.2744281            0.3172530</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>t_test_sentiment <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sentiment_score <span class="sc">~</span> open_closed_status, <span class="at">data =</span> data_filtered)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">print</span>(t_test_sentiment)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  sentiment_score by open_closed_status
+## t = -7.8706, df = 900.43, p-value = 1.01e-14
+## alternative hypothesis: true difference in means between group closed and group open is not equal to 0
+## 95 percent confidence interval:
+##  -0.11233375 -0.06749261
+## sample estimates:
+## mean in group closed   mean in group open 
+##            0.6738197            0.7637329</code></pre>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div id="sql-query" class="section level2">
+<h2><strong>(9) SQL Query</strong></h2>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Since the dataset is not very large, I can perform the query in R using the sqldf package.</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="fu">library</span>(sqldf)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># Ejecutar la consulta SQL usando sqldf</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sqldf</span>(<span class="st">&quot;SELECT main_category, COUNT(*) AS category_count</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="st">                 FROM data</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="st">                 GROUP BY main_category&quot;</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co"># Ver el resultado</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<pre><code>##                     main_category category_count
+## 1                            &lt;NA&gt;              1
+## 2             automotive_services             64
+## 3                            bars             96
+## 4                          beauty            399
+## 5                   civil_society           1803
+## 6  convenience_and_grocery_stores             76
+## 7                          dining            768
+## 8    entertainment_and_recreation            319
+## 9                      healthcare            709
+## 10                  home_services            230
+## 11          professional_services           3797
+## 12                         retail           1300
+## 13        transportation_services            114
+## 14                         travel            266
+## 15                  uncategorized              3</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
