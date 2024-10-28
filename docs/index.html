@@ -12,7 +12,7 @@
 <meta name="author" content="Sebastián Sánchez Cuartas" />
 
 
-<title>Take-Home Assessment</title>
+<title>Technical Assessment: Data Analysis Exercise for Candidate Evaluation</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -423,7 +423,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Take-Home Assessment</h1>
+<h1 class="title toc-ignore">Technical Assessment: Data Analysis
+Exercise for Candidate Evaluation</h1>
 <h4 class="author">Sebastián Sánchez Cuartas</h4>
 
 </div>
@@ -445,6 +446,84 @@ blockquote {
 }
 </style>
 <p>_____________________________________________________________________________________________________________________________________</p>
+<div id="assignment-overview" class="section level2">
+<h2><strong>Assignment Overview</strong></h2>
+<p>The goal of this assessment is to evaluate the candidate’s technical
+and analytical skills. The task involves analyzing a sample dataset from
+a client in the Consumer-Packaged Goods (CPG) sector to generate
+actionable insights. Here are the details provided for the
+assignment:</p>
+<p><strong>Task Details</strong></p>
+<ul>
+<li><strong>Objective</strong>: Identify patterns in the data that can
+inform the client’s marketing and supply chain strategies.</li>
+<li><strong>Tools</strong>: You may use R, Python, or any
+object-oriented programming language.</li>
+<li><strong>Time Limit</strong>: 3 hours. While time management is part
+of the evaluation, the quality of the analysis is prioritized.</li>
+</ul>
+<p><strong>Deliverables</strong></p>
+<ul>
+<li>A Jupyter Notebook or R script with the complete analysis and
+code.</li>
+<li>A brief report (1-2 pages) summarizing findings and recommendations
+for the CPG client.</li>
+</ul>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div id="technical-assessment" class="section level2">
+<h2><strong>Technical Assessment</strong></h2>
+<p><strong>Data Exploration &amp; Quality Control</strong></p>
+<ul>
+<li><div>
+<blockquote>
+<ul>
+<li><p>Load the dataset and explore its structure.</p></li>
+<li><p>Identify any missing values, duplicates, or
+inconsistencies.</p></li>
+<li><p>Provide a summary of the dataset, including variable types,
+record counts, and notable patterns.</p></li>
+<li><p>Ensure data quality for client presentation.</p></li>
+</ul>
+</blockquote>
+</div></li>
+</ul>
+<p><strong>Data Cleaning</strong></p>
+<ul>
+<li><div>
+<blockquote>
+<ul>
+<li><p>Address missing or inconsistent values, and document the
+approach.</p></li>
+<li><p>Standardize names, regions, and other key fields for accurate
+reporting.</p></li>
+</ul>
+</blockquote>
+</div></li>
+</ul>
+<p><strong>Exploratory Data Analysis (EDA)</strong></p>
+<ul>
+<li><div>
+<blockquote>
+<ul>
+<li><p>Conduct exploratory analysis to identify trends or
+patterns.</p></li>
+<li><p>Focus on key fields and present insights in the final
+report.</p></li>
+</ul>
+</blockquote>
+</div></li>
+</ul>
+<p><strong>SQL Query</strong></p>
+<ul>
+<li><div>
+<blockquote>
+<p>Write a SQL query to extract counts by the main category.</p>
+</blockquote>
+</div></li>
+</ul>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
 <div id="data-cleaning-and-preparation" class="section level2">
 <h2><strong>(1) Data Cleaning and Preparation</strong></h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -676,11 +755,12 @@ Business Categories</strong></h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Faceted plot for the main business_categories using jitter to avoid overlap</span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">ggplot</span>(data_top, <span class="fu">aes</span>(<span class="at">x =</span> popularity_score, <span class="at">y =</span> sentiment_score)) <span class="sc">+</span></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.02</span>, <span class="at">height =</span> <span class="fl">0.02</span>) <span class="sc">+</span>  <span class="co"># Adjust &#39;width&#39; and &#39;height&#39; as needed</span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> business_category) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Popularity Score&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Sentiment Score&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Relationship between Popularity and Sentiment (Top 20 Categories) with Jitter&quot;</span>)</span></code></pre></div>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> business_category) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Popularity Score&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Sentiment Score&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Relationship between Popularity and Sentiment (Top 20 Categories) with Jitter&quot;</span>)</span></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="100%" /></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Justification: Filtering the 20 most common categories helps focus the analysis on those with greater relevance. This avoids visual overload and facilitates the interpretation of the graphs and results.</span></span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
@@ -780,6 +860,94 @@ Open/Closed Status</strong></h2>
 ## 13        transportation_services            114
 ## 14                         travel            266
 ## 15                  uncategorized              3</code></pre>
+<p>_____________________________________________________________________________________________________________________________________</p>
+</div>
+<div id="data-analysis-report" class="section level2">
+<h2><strong>(10) Data Analysis Report</strong></h2>
+<p>This report is structured according to the points enumerated in the R
+code and corresponding graphics. The following presents the results and
+analysis:</p>
+<p>1.      <strong>Data Cleaning and Preparation</strong><br />
+Data cleaning and preparation were performed to ensure quality and
+consistency. This included removing duplicates, normalizing formats, and
+converting columns to appropriate data types.</p>
+<p>2.      <strong>Missing Values Visualization</strong><br />
+A visualization of missing values in the dataset was generated. This
+helped identify patterns of missing data, allowing for a quick
+assessment of the magnitude of missing values across different
+variables, which aids in planning imputation strategies.</p>
+<p>3.      <strong>Imputation of Missing Values and Comparative
+Analysis</strong><br />
+Imputation methods were applied to handle missing values, such as median
+imputation for the variables <em>popularity_score</em> and
+<em>sentiment_score</em>, which are crucial for understanding the
+success of each business. A comparative analysis was conducted before
+and after the imputation to assess the impact of this technique on the
+distribution of metrics. It was decided to proceed with the imputed
+data, accepting a slight sacrifice in variability.</p>
+<p>4.      <strong>Distribution of Main Business
+Categories</strong><br />
+The distribution of main business categories was examined, providing
+insights into the variety and concentration of businesses in each
+category. This helps identify the most representative categories that
+require more attention, with <em>professional_services</em> being the
+most frequent. To gain deeper insights, the <em>business_category</em>
+variable was further analyzed, establishing a relationship with the
+imputed variables: <em>popularity_score</em> and
+<em>sentiment_score</em>.</p>
+<p>5.      <strong>Summary of Popularity and Sentiment by Business
+Category</strong><br />
+A summary was created detailing popularity and sentiment by business
+category. This analysis reveals how these metrics are related, providing
+valuable insights into which categories have greater recognition and a
+better overall perception, as well as identifying their respective
+<em>main_category</em>.</p>
+<p>6.      <strong>Relationship Between Popularity and Sentiment for Top
+Business Categories</strong><br />
+The relationship between popularity and sentiment was explored for the
+top business categories. The 20 most important categories were selected,
+and the faceted plot revealed that most categories show low popularity
+with high sentiment scores. This suggests the need for strategies to
+boost popularity, leveraging the positive sentiment already present.</p>
+<p>7.      <strong>Distribution of Popularity and Sentiment Scores by
+Business Category</strong><br />
+The distribution of <em>popularity_score</em> and
+<em>sentiment_score</em> by business category was visualized. This
+approach provides a clearer perspective on how these metrics are
+distributed, visually confirming the observations from the previous
+analysis.</p>
+<p>8.      <strong>Analysis of Popularity and Sentiment Based on
+Business Open/Closed Status</strong><br />
+An analysis of popularity and sentiment based on the open or closed
+status of businesses was conducted using t-tests. The results
+showed:</p>
+<blockquote>
+<div class="line-block">o    <strong>T-Test for Popularity</strong>: A
+significant p-value (&lt; 0.05) indicates a difference between the
+popularity of open businesses (0.3173) and closed businesses (0.2744),
+suggesting that higher popularity scores correlate with a greater
+likelihood of remaining open.</div>
+</blockquote>
+<blockquote>
+<div class="line-block">o    <strong>T-Test for Sentiment</strong>: A
+very low p-value indicates that open businesses have a higher average
+sentiment score (0.7637) compared to closed businesses (0.6738),
+implying that businesses with a positive perception are more likely to
+remain operational.</div>
+</blockquote>
+<p>Based on this, it is recommended that the client focus on improving
+the perception of their businesses, as this could increase the
+likelihood of remaining open.</p>
+</div>
+<div id="conclusion" class="section level2">
+<h2><strong>(11) Conclusion</strong></h2>
+<p>In summary, the analysis reveals that both popularity and positive
+perception are critical factors for business sustainability.
+Implementing strategies that encourage higher popularity and a positive
+perception can significantly contribute to the operational continuity of
+businesses in the market. Additionally, considering the geographic
+coordinates available in the dataset, spatial analysis could provide
+further insights into regional trends and opportunities.</p>
 </div>
 
 

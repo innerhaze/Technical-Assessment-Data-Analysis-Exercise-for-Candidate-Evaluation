@@ -1,5 +1,5 @@
 ---
-title: "Take-Home Assessment"
+title: "Technical Assessment: Data Analysis Exercise for Candidate Evaluation"
 author: "Sebastián Sánchez Cuartas"
 date: ""
 output: 
@@ -31,6 +31,69 @@ blockquote {
 }
 </style>
 ```
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **Assignment Overview**
+
+The goal of this assessment is to evaluate the candidate's technical and analytical skills. The task involves analyzing a sample dataset from a client in the Consumer-Packaged Goods (CPG) sector to generate actionable insights. Here are the details provided for the assignment:
+
+**Task Details**
+
+-   **Objective**: Identify patterns in the data that can inform the client's marketing and supply chain strategies.
+-   **Tools**: You may use R, Python, or any object-oriented programming language.
+-   **Time Limit**: 3 hours. While time management is part of the evaluation, the quality of the analysis is prioritized.
+
+**Deliverables**
+
+-   A Jupyter Notebook or R script with the complete analysis and code.
+-   A brief report (1-2 pages) summarizing findings and recommendations for the CPG client.
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **Technical Assessment**
+
+**Data Exploration & Quality Control**
+
+-   <div>
+
+    > -   Load the dataset and explore its structure.
+    >
+    > -   Identify any missing values, duplicates, or inconsistencies.
+    >
+    > -   Provide a summary of the dataset, including variable types, record counts, and notable patterns.
+    >
+    > -   Ensure data quality for client presentation.
+
+    </div>
+
+**Data Cleaning**
+
+-   <div>
+
+    > -   Address missing or inconsistent values, and document the approach.
+    >
+    > -   Standardize names, regions, and other key fields for accurate reporting.
+
+    </div>
+
+**Exploratory Data Analysis (EDA)**
+
+-   <div>
+
+    > -   Conduct exploratory analysis to identify trends or patterns.
+    >
+    > -   Focus on key fields and present insights in the final report.
+
+    </div>
+
+**SQL Query**
+
+-   <div>
+
+    > Write a SQL query to extract counts by the main category.
+
+    </div>
+
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 ## **(1) Data Cleaning and Preparation**
@@ -217,6 +280,7 @@ print(summary_popularity_sentiment)
 # Faceted plot for the main business_categories using jitter to avoid overlap
 ggplot(data_top, aes(x = popularity_score, y = sentiment_score)) +
   geom_jitter(alpha = 0.5, width = 0.02, height = 0.02) +  # Adjust 'width' and 'height' as needed
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
   facet_wrap(~ business_category) +
   theme_minimal() +
   xlab("Popularity Score") +
@@ -279,7 +343,7 @@ print(t_test_sentiment)
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-## **(9)  SQL Query**
+## **(9) SQL Query**
 
 ```{r, warning=FALSE, message=FALSE}
 
@@ -296,3 +360,43 @@ result <- sqldf("SELECT main_category, COUNT(*) AS category_count
 print(result)
 
 ```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## **(10) Data Analysis Report**
+
+This report is structured according to the points enumerated in the R code and corresponding graphics. The following presents the results and analysis:
+
+1.      **Data Cleaning and Preparation**\
+Data cleaning and preparation were performed to ensure quality and consistency. This included removing duplicates, normalizing formats, and converting columns to appropriate data types.
+
+2.      **Missing Values Visualization**\
+A visualization of missing values in the dataset was generated. This helped identify patterns of missing data, allowing for a quick assessment of the magnitude of missing values across different variables, which aids in planning imputation strategies.
+
+3.      **Imputation of Missing Values and Comparative Analysis**\
+Imputation methods were applied to handle missing values, such as median imputation for the variables *popularity_score* and *sentiment_score*, which are crucial for understanding the success of each business. A comparative analysis was conducted before and after the imputation to assess the impact of this technique on the distribution of metrics. It was decided to proceed with the imputed data, accepting a slight sacrifice in variability.
+
+4.      **Distribution of Main Business Categories**\
+The distribution of main business categories was examined, providing insights into the variety and concentration of businesses in each category. This helps identify the most representative categories that require more attention, with *professional_services* being the most frequent. To gain deeper insights, the *business_category* variable was further analyzed, establishing a relationship with the imputed variables: *popularity_score* and *sentiment_score*.
+
+5.      **Summary of Popularity and Sentiment by Business Category**\
+A summary was created detailing popularity and sentiment by business category. This analysis reveals how these metrics are related, providing valuable insights into which categories have greater recognition and a better overall perception, as well as identifying their respective *main_category*.
+
+6.      **Relationship Between Popularity and Sentiment for Top Business Categories**\
+The relationship between popularity and sentiment was explored for the top business categories. The 20 most important categories were selected, and the faceted plot revealed that most categories show low popularity with high sentiment scores. This suggests the need for strategies to boost popularity, leveraging the positive sentiment already present.
+
+7.      **Distribution of Popularity and Sentiment Scores by Business Category**\
+The distribution of *popularity_score* and *sentiment_score* by business category was visualized. This approach provides a clearer perspective on how these metrics are distributed, visually confirming the observations from the previous analysis.
+
+8.      **Analysis of Popularity and Sentiment Based on Business Open/Closed Status**\
+An analysis of popularity and sentiment based on the open or closed status of businesses was conducted using t-tests. The results showed:
+
+> | o    **T-Test for Popularity**: A significant p-value (\< 0.05) indicates a difference between the popularity of open businesses (0.3173) and closed businesses (0.2744), suggesting that higher popularity scores correlate with a greater likelihood of remaining open.
+
+> | o    **T-Test for Sentiment**: A very low p-value indicates that open businesses have a higher average sentiment score (0.7637) compared to closed businesses (0.6738), implying that businesses with a positive perception are more likely to remain operational.
+
+Based on this, it is recommended that the client focus on improving the perception of their businesses, as this could increase the likelihood of remaining open.
+
+## **(11) Conclusion**
+
+In summary, the analysis reveals that both popularity and positive perception are critical factors for business sustainability. Implementing strategies that encourage higher popularity and a positive perception can significantly contribute to the operational continuity of businesses in the market. Additionally, considering the geographic coordinates available in the dataset, spatial analysis could provide further insights into regional trends and opportunities.
