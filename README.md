@@ -6,4 +6,4 @@ This repository contains my solution to a take-home technical assessment assigne
 
 To view the **R** code and detailed instructions, visit:
 
-[See the Code and Instructions](https://innerhaze.github.io/Technical-Assessment-Data-Analysis-Exercise-for-Candidate-Evaluation/)
+[See the Code and Instructions]()
